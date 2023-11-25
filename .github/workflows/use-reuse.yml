@@ -77,17 +77,16 @@ jobs:
     uses: ./.github/workflows/reusable-workflow.yml
     with:
       artifact-name: dist-files
-
-    # runs-on: ubuntu-latest
-    # steps:
-    #   - name: Get build artifacts
-    #     uses: actions/download-artifact@v3
-    #     with:
-    #       name: dist-files
-    #   - name: Output contents
-    #     run: ls
-    #   - name: Deploy
-    #     run: echo "Deploying..."
+    # example on how to pass secrets to reusable workflow
+    # secrets:
+    #   some-secret: ${{ secrets.some-secret }}
+    #########
+  print-deploy-result:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print deploy output
+        run: echo "${{ needs.deploy.outputs.result }}"
   report:
     needs: [lint, deploy]
     if: failure()
