@@ -7,6 +7,16 @@ jobs:
       matrix:
         node-version: [12, 14, 16]
         os: [ubuntu-latest, windows-latest]
+        # reserved include key
+        # use this when you want to have single combination
+        # where on ubuntu-latest install node-v-18
+        include:
+          - node-version: 18
+            os: ubuntu-latest
+        # reversed logic
+        exclude:
+          - node-version: 12
+            os: windows-latest
     runs-on: ${{ matrix.os }}
     steps:
       - name: get code
