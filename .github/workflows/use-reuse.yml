@@ -73,7 +73,11 @@ jobs:
           path: dist
   deploy:
     needs: build
+    # reusable workflow
     uses: ./.github/workflows/reusable-workflow.yml
+    with:
+      artifact-name: dist-files
+
     # runs-on: ubuntu-latest
     # steps:
     #   - name: Get build artifacts
